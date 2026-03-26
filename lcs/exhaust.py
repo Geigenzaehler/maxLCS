@@ -13,13 +13,44 @@ def allstr(n,k):
         nr = []
     return r
 
-def allstr_o(n,k):
+def allstr2(n,k): # all strings of length n with exactly k distinct letters
+    C = string.ascii_lowercase[:k]
+    r = [""]
+    nr = []
+    for i in range(n):
+        for c in C:
+            for s in r:
+                if c not in s:
+                    nr.append(c+s)
+        r = nr
+        nr = []
+    return r
+
+def allstr_o(n,k): #all strings of length n with at most k distinct letters, and the first occurrence of the letters is in order
     letters = string.ascii_lowercase[:k]
     result = []
 
     def backtrack(pos, used_max, current):
         if pos == n:
             result.append("".join(current))
+            return
+
+        for i in range(min(used_max + 2, k)):
+            current.append(letters[i])
+            backtrack(pos + 1, max(used_max, i), current)
+            current.pop()
+
+    backtrack(0, -1, [])
+    return result
+
+def allstr_o2(n,k): #all strings of length n with exactly k distinct letters, and the first occurrence of the letters is in order
+    letters = string.ascii_lowercase[:k]
+    result = []
+
+    def backtrack(pos, used_max, current):
+        if pos == n:
+            if used_max == k - 1:
+                result.append("".join(current))
             return
 
         for i in range(min(used_max + 2, k)):
@@ -56,11 +87,11 @@ def maxD(S, S2):
                 c1 = S[i]
                 c2 = S2[j]
                 max = countLCS(S[i], S2[j])
-                print("New champion: " + str(max) + " " + S[i] + ", " + S2[j])
+                #print("New champion: " + str(max) + " " + S[i] + ", " + S2[j])
             elif countLCS(S[i], S2[j]) == max:
-                print("Tied champion:" + str(max) + " " + S[i] + ", " + S2[j])
+                #print("Tied champion:" + str(max) + " " + S[i] + ", " + S2[j])
                 a = 0
-    print("finish")
+    #print("finish")
     return max, c1, c2
 
 def D(t):
@@ -69,8 +100,8 @@ def D(t):
     champ1 = ""
     champ2 = ""
     for l in range(1,m+1):
-        So = allstr_o(t-l, 3)
-        S = allstr(l, 3)
+        So = allstr_o(t-l, l)
+        S = allstr(l, l)
         max, c1, c2 = maxD(So, S)
         if(max > maxi):
             maxi = max
