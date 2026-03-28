@@ -9,9 +9,11 @@ def betcon(p1, p2, s1, s2, k): #p1, p2 are the prefixes, s1, s2 are the suffixes
         t = len(A+B)
         count = countLCS(A,B)
         C = count * math.sqrt(t)/4**(t/5)*math.sqrt(math.pi)
-        print(C*C)
+        print(C)
     return 0
-# betcon("abc","","","cba",100)
-
-for i in range(2,13):
-    print(D(i))
+#betcon("","","","",100)
+v = 50
+u,k = upperBoundDP(v,v)
+for i in range(v+1):
+    #print(u[i])
+    print(k[i])
