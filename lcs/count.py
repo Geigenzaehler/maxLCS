@@ -77,3 +77,33 @@ def upperBoundDP(m,n): # For two strings of length m and n an upper bound of the
             D[i][j] = smax
     return D,K
 
+def tighterUpperBoundDP(m,n): # For two strings of length m and n an upper bound of the number of longest common subsequences of length l is D(m,n,l) = D(m-1,n-k, l-1) + D(m-2, n-k+2, l-1) + ... + D(m-k, n-1, l-1) where k is the k that maximises the sum. D(0,n) = D(m,0) = 1 for all m,n >= 0.
+    D = [[[0 for j in range(n+1)] for i in range(m+1)] for l in range(min(m,n)+1)]
+    K = [[0 for j in range(n+1)] for i in range(m+1)]
+    for i in range(m+1):
+        for j in range(n+1):
+            D[0][i][j] = 1
+    for l in range(1, min(m,n)+1):
+        for i in range(1,m+1):
+            for j in range(1,n+1):
+                k = 1
+                kmax = min(i,j)
+                
+                smax = 0
+                s = 0
+                while k <= kmax:
+                    for o in range(k):
+                        s = s + D[l-1][i-o-1][j-k+o] 
+                    if s > smax:
+                        smax = s
+                    s = 0
+                    k += 1
+                
+                D[l][i][j] = smax
+    for i in range(0,m+1):
+            for j in range(0,n+1):
+                for o in range(min(i,j)+1):
+                    if D[o][i][j] > K[i][j]:
+                        K[i][j] = D[o][i][j]
+    return D,K
+

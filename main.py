@@ -12,8 +12,9 @@ def betcon(p1, p2, s1, s2, k): #p1, p2 are the prefixes, s1, s2 are the suffixes
         print(C)
     return 0
 #betcon("","","","",100)
-v = 50
+v = 80
 u,k = upperBoundDP(v,v)
-for i in range(v+1):
+#for i in range(v+1):
     #print(u[i])
-    print(k[i])
+    #print(k[i])
+print(u[80][80])
