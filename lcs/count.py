@@ -1,3 +1,4 @@
+import math
 def countLCS(x,y):
     L = [[0 for j in range(len(y)+1)] for i in range(len(x)+1)]
     for i in range(1,len(x)+1):
@@ -107,3 +108,66 @@ def tighterUpperBoundDP(m,n): # For two strings of length m and n an upper bound
                         K[i][j] = D[o][i][j]
     return D,K
 
+def betcon(p1, p2, s1, s2, k): #p1, p2 are the prefixes, s1, s2 are the suffixes, k is the number of repetitions of the middle part
+    for i in range(1,k):
+        A = p1 + "abcde"*i + s1
+        B = p2 + "edcba"*i + s2
+        t = len(A+B)
+        count = countLCS(A,B)
+        C = count * math.sqrt(t)/4**(t/5)*math.sqrt(math.pi)
+        print(C)
+    return 0
+
+def randomString(n, alphabet):
+    import random
+    s = ""
+    for i in range(n):
+        s = s + random.choice(alphabet)
+    return s
+
+def countMeanLCS(n, alphabet, trials):
+    import math
+    count = 0
+    for i in range(trials):
+        s1 = randomString(n, alphabet)
+        s2 = randomString(n, alphabet)
+        count = count + countLCS(s1,s2)
+    return count/trials, math.log(count/trials)/n
+
+def plotMeanLCS(n, alphabet, trials, log=True):
+    import matplotlib.pyplot as plt
+    import math
+    x = []
+    y = []
+    for i in range(1,n+1):
+        x.append(i)
+        y.append(countMeanLCS(i, alphabet, trials))
+    if log:
+        plt.plot(x, [math.log(i) for i in y])
+    else:
+        plt.plot(x, y)
+    plt.xlabel("n")
+    if log:
+        plt.ylabel("log(mean LCS count)")
+    else:
+        plt.ylabel("mean LCS count")
+    plt.show()
+
+def plotCountHistogram(n, alphabet, trials, log=True):
+    import matplotlib.pyplot as plt
+    import math
+    x = []
+    for i in range(trials):
+        s1 = randomString(n, alphabet)
+        s2 = randomString(n, alphabet)
+        x.append(countLCS(s1,s2))
+    if log:
+        plt.hist([math.log(i) for i in x], bins=20)
+    else:
+        plt.hist(x, bins=20)
+    plt.xlabel("LCS count")
+    if log:
+        plt.ylabel("log(count)")
+    else:
+        plt.ylabel("count")
+    plt.show()
