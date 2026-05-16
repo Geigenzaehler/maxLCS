@@ -81,6 +81,7 @@ def maxD(S, S2):
     max = 0
     c1 = ""
     c2 = ""
+    clist = []
     for i in range(l):
         for j in range(l2):
             if countLCS(S[i], S2[j]) > max:
@@ -88,11 +89,12 @@ def maxD(S, S2):
                 c2 = S2[j]
                 max = countLCS(S[i], S2[j])
                 #print("New champion: " + str(max) + " " + S[i] + ", " + S2[j])
+                clist = [[c1, c2]]
             elif countLCS(S[i], S2[j]) == max:
                 #print("Tied champion:" + str(max) + " " + S[i] + ", " + S2[j])
-                a = 0
+                clist.append([S[i], S2[j]])
     #print("finish")
-    return max, c1, c2
+    return max, c1, c2, clist
 
 def D(t):
     m = t//2
