@@ -49,3 +49,7 @@ L("abba", "baab")         # 2
 
 D(8)                      # maximum and an extremal pair
 D_ub(16)                  # refined upper bound
+
+## Version used for the thesis
+
+Release `v1.0-thesis`.
