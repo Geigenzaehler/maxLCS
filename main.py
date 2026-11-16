@@ -1,16 +1,18 @@
 import math
 from lcs.exhaust import *;
-from lcs.count import *;
+from lcs.count import *;    
 from lcs.enumerateLCS import *;
+from lcs.upperboundDP import *;
 
-s1 = 'aabbbaaabbbaaabbbaa'
-s2 = 'bababababababababab'
-enumerateLCS(s2, s1)
+s1 = 'bbbaaabbbaaabbbaaa'
+s2 = 'bababababababababa'
 
-for i in range(2, 23):
-    a = allstr_o(i,2)
-    bw = "ba"*math.floor(i/2)
-    if i%2 == 1:
-        bw = bw + "b"
-    b = [bw]
-    print(maxD(a, b))
+print(countLCS(s1,s2))
+
+print(countLCS("abcd"*9,"dcba"*9))
+print(D_ub(72))
+
+for i in range(0,13):
+    print(D(i))
+
+    
