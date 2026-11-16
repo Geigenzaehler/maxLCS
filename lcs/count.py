@@ -1,6 +1,3 @@
-
-
-
 def countLCS(x,y):
     if len(x) == 0 or len(y) == 0:
         return 1
@@ -40,19 +37,6 @@ def countLCS(x,y):
                     B[i][j] = B[i][j-1]+B[i-1][j]-B[i-1][j-1]
     return max(1,B[len(x)-1][len(y)-1])
 
-def dpLCS(x,y):
-    L = [[0 for j in range(len(y)+1)] for i in range(len(x)+1)]
-    for i in range(1,len(x)+1):
-        for j in range(1,len(y)+1):
-            if x[i-1] == y[j-1]:
-                L[i][j] = L[i-1][j-1]+1
-            else:
-                L[i][j] = max(L[i-1][j], L[i][j-1])
-    
-    return L
-
-def L(x,y):
-    return dpLCS(x,y)[len(x)][len(y)]
 
 
 
