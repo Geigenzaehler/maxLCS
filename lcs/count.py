@@ -2,6 +2,8 @@
 
 
 def countLCS(x,y):
+    if len(x) == 0 or len(y) == 0:
+        return 1
     L = [[0 for j in range(len(y)+1)] for i in range(len(x)+1)]
     for i in range(1,len(x)+1):
         for j in range(1,len(y)+1):
